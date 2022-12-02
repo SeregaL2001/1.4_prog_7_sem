@@ -1,4 +1,4 @@
-#include "method.hpp"
+#include "method.h"
 
 
 // тут будут сами функции 
