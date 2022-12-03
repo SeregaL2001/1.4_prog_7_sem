@@ -6,7 +6,6 @@
  */
 
 
-
 #include "method.h"
 
 int main()

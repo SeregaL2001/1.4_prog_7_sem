@@ -5,6 +5,7 @@ double solution(double x, double a)
 {
     return (a/sin(1)) * (x * sin(x)); 
 }
+
 double g(double x, double a)
 {
 
