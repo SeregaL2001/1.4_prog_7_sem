@@ -25,8 +25,8 @@ int main()
 
     h = 1.0/(N-1);
 
-    X = (double *)malloc(N* sizeof(double));
-    Y = (double *)malloc(N* sizeof(double));
+    // X = (double *)malloc(N* sizeof(double));
+    // Y = (double *)malloc(N* sizeof(double));
 
     return 0;
 }

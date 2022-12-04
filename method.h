@@ -5,10 +5,12 @@
 
 #define EPS 1e-10
 
-double solution(double x, double a); // мое подобранное решение под краевые условия 
+double solution(double x, int a); // мое подобранное решение под краевые условия 
 
-double g(double x, double a);
+double g(double x, int a); // действие диф оператора на solution
 
-void runge_kutta(double *X, double *Res, double y_0, double dy_0, double ddy_0, int N);
+double f(double x, int a, double u_1, double u_2, double u_3, int num); // правая часть для решения Р-К 
 
-double find_ddu_0(double *X, double y_0, double y_1, double dy_0, int N); 
+void runge_kutta(double *X, int a, double *Res, double y_0, double dy_0, double ddy_0, int N); // метод Р-К см вики 
+
+double find_ddu_0(double *X, int a, double u_0, double u_1, double du_0, int N); // поиск краевого условия методом стрельбы 
