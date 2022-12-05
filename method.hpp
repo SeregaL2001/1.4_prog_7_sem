@@ -4,9 +4,7 @@
 #include <locale.h> // установка бибилиотеки языков для VScode 
 #include <string>
 
-#define TEST 3
-#define EPS 1e-10
-
+#define TEST 6
 
 double solution(double x, int a); // мое подобранное решение под краевые условия 
 
