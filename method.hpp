@@ -4,7 +4,7 @@
 #include <locale.h> // установка бибилиотеки языков для VScode 
 #include <string>
 
-#define TEST 5
+#define TEST 3
 #define EPS 1e-10
 
 
