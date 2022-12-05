@@ -6,7 +6,7 @@
  */
 
 
-#include "method.h"
+#include "method.hpp"
 
 
 int main()
@@ -38,9 +38,9 @@ int main()
      U = (double *)malloc(N* sizeof(double));
      
     X[0] = 0; 
-    for(int i = 0; i < N-1; i++)
+    for(int i = 1; i < N; i++)
     {
-        X[i+1] = X[i] + h;
+        X[i] = X[i - 1] + h;
     }
 
     ddu_0 = find_ddu_0(X, a, u_0, u_1, du_0, N);

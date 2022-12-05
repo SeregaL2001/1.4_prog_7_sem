@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <locale.h> // установка бибилиотеки языков для VScode 
+#include <string>
 
 #define TEST 5
 #define EPS 1e-10
