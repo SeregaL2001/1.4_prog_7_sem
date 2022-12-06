@@ -48,7 +48,9 @@ int main()
         X[i] = X[i - 1] + h;
     }
 
-    ddu_0 = find_ddu_0(X, a, u_0, u_1, du_0, N);
+    ddu_0 = find_ddu_0_2(X, a, u_0, u_1, du_0, N);
+    printf("значение проивзодной: %lf \n", ddu_0);
+    
     runge_kutta(X, a, U, u_0, du_0, ddu_0, N);
 
      error[j] = 0;

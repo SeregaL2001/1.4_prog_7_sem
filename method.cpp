@@ -10,7 +10,7 @@ double solution(double x, int a)
 double g(double x, int a)
 {
     double res;
-    res = (x * cos(x) + sin(x)) * (a/sin(1)); // это по факту u'
+    res = (x * cos(x) + sin(x)) * (a/sin(1)); // u'
     res = cos(x) * res; // u' * cos(x)
     res = res + (a * x * sin(x)) * (1/sin(1)); // u + u' * cos(x)
     res = res + (-a/sin(1)) * (3 * sin(x) + x * cos(x)); // u + u' * cos(x) + u'''
@@ -93,31 +93,71 @@ void runge_kutta(double *X, int a, double *Res_u, double u_0, double du_0, doubl
     for (int i = 0; i < N; i++)
     {
         Res_u[i] = Y[i][0];
-        free(Y[i]);
+     //   free(Y[i]); // ?
     }
     free(Y);
 
 }
 
+// у нас получается линейное уравнение вида u = c * u'' + b которое мы решаем 
 double find_ddu_0(double *X, int a, double u_0, double u_1, double du_0, int N)
 {
-    double f_cent, f_right;
-    double right_diff;
-    double result = 0;
-    double *C;
+    double b, y;
+    double c;
+    double *U;
 
-    C = (double *)malloc(N * sizeof(double));
+    U = (double *)malloc(N * sizeof(double));
     
-    runge_kutta(X, a, C, u_0, du_0, result, N); // ?
+   // делаем пристрелку, подставляем ddu(0) = 0 
+    runge_kutta(X, a, U, u_0, du_0, 0, N); 
     
-    f_cent = C[N - 1];
+    b = U[N - 1];
 
-    runge_kutta(X, a, C, u_0, du_0, result + 1, N);
+   // делаем вторую пристрелку, подставляем ddu(0) = 1
+    runge_kutta(X, a, U, u_0, du_0, 1, N);
 
-    f_right = C[N - 1];
-    right_diff = (f_right - f_cent);
-    result = result + (u_1 - f_cent) / right_diff;  
+    c = (U[N - 1] - b) / (1 - 0); 
 
-    free(C);
+    free(U);
+    return (u_1 - b) / c;
+}
+
+
+double find_ddu_0_2(double *X, int a, double u_0, double u_1, double du_0, int N)
+{
+    double f_cent, f_right, f_left;
+    double cent_diff;
+    double b;
+    double result = 0.5;
+    double *U;
+    int i = 0;
+
+    double h = 1.0 / (N - 1);
+
+    U = (double *)malloc(N * sizeof(double));
+
+        do
+        {
+            runge_kutta(X, a, U, u_0, du_0, result, N);
+            f_cent = U[N-1];
+
+            runge_kutta(X, a, U, u_0, du_0, result + h, N);
+            f_right = U[N-1];
+
+            runge_kutta(X, a, U, u_0, du_0, result - h, N);
+            f_left = U[N-1];
+
+            // строим касательную вида f_cent = cent_diff * x + b 
+            cent_diff = (f_right - f_left) / (2 * h);
+
+            b = f_cent - cent_diff * result; 
+            result = (a - b) / cent_diff; 
+ 
+            i++;  
+        } while(fabs(f_cent - a) > EPS);
+
+   // printf(" кол во итерраций i: %d\n", i);
+    free(U);
     return result;
+
 }
