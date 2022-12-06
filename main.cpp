@@ -88,8 +88,9 @@ int main()
  }
 
     printf("отношение норм погрешностей ||error[j]|| / ||error[j + 1]||:\n");
-    for (int j = 0; j < TEST - 1; j++)
+    for (int j = 0; j < TEST - 1; j++) 
+    {
         printf("%.8f\n", error[j] / error[j + 1]);
-
+    }
     return 0;
 }

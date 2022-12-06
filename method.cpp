@@ -95,8 +95,8 @@ void runge_kutta(double *X, int a, double *Res_u, double u_0, double du_0, doubl
         Res_u[i] = Y[i][0];
         free(Y[i]);
     }
-    free(Y);
 
+    free(Y);
 }
 
 double find_ddu_0(double *X, int a, double u_0, double u_1, double du_0, int N)

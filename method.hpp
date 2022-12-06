@@ -11,7 +11,7 @@ double solution(double x, int a); // мое подобранное решени�
 
 double g(double x, int a); // действие диф оператора на solution
 
-double f(double x, int a, double u_1, double u_2, double u_3, int num); // правая часть для решения Р-К 
+double f(double x, int a, double u_1, double u_2, double u_3, int num); // правая часть для решения задачи Коши с помощью Р-К 
 
 void runge_kutta(double *X, int a, double *Res, double u_0, double du_0, double ddu_0, int N); // метод Р-К см вики 
 
