@@ -1,9 +1,3 @@
-/**
- * @Author: serega
- * @Date:   2022-12-02T13:05:31+03:00
- * @Last modified by:   serega
- * @Last modified time: 2022-12-02T13:08:14+03:00
- */
 
 
 #include "method.hpp"
@@ -48,27 +42,54 @@ int main()
         X[i] = X[i - 1] + h;
     }
 
-    ddu_0 = find_ddu_0_2(X, a, u_0, u_1, du_0, N);
+    ddu_0 = find_ddu_0(X, a, u_0, u_1, du_0, N);
     runge_kutta(X, a, U, u_0, du_0, ddu_0, N);
+    
+    FILE *file;
+        switch(j)
+        {
+            case 0:
+                file = fopen("test_1.txt", "w");
+                break;
+            case 1:
+                file = fopen("test_2.txt", "w");
+                break;
+            case 2:
+                file = fopen("test_3.txt", "w");
+                break;
+            case 3:
+                file = fopen("test_4.txt", "w");
+                break;
+            case 4:
+                file = fopen("test_5.txt", "w");
+                break;
+            case 5:
+                file = fopen("test_6.txt", "w");
+        }
 
      error[j] = 0;
      for(int i = 0; i < N; i++)
      {
+        // ||error[j]|| = max|error[j]|, j = 0, 1,......, N-1
         if(error[j] < fabs(U[i] - solution(X[i], a)))
         {
              error[j] = fabs(U[i] - solution(X[i], a));
         }
-     }
-        printf("h = %.8f: error = %le\n", h, error[j]);
 
+        fprintf(file, "%lf %lf\n", X[i], U[i]);
+     }
+
+        printf("При h = %.8f:\n error = %le\n", h, error[j]);
+
+        fclose(file);
         free(X);
         free(U);
         N = (N - 1) * k + 1;
  }
 
-    printf("отношение погрешностей error[i] / error[i + 1]:\n");
-    for (int i = 0; i < TEST - 1; i++)
-        printf("%.3f\n", error[i] / error[i + 1]);
+    printf("отношение норм погрешностей ||error[j]|| / ||error[j + 1]||:\n");
+    for (int j = 0; j < TEST - 1; j++)
+        printf("%.8f\n", error[j] / error[j + 1]);
 
     return 0;
 }

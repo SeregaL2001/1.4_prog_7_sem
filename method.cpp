@@ -93,37 +93,13 @@ void runge_kutta(double *X, int a, double *Res_u, double u_0, double du_0, doubl
     for (int i = 0; i < N; i++)
     {
         Res_u[i] = Y[i][0];
-     //   free(Y[i]); // ?
+        free(Y[i]);
     }
     free(Y);
 
 }
 
-// у нас получается линейное уравнение вида u = c * u'' + b которое мы решаем 
 double find_ddu_0(double *X, int a, double u_0, double u_1, double du_0, int N)
-{
-    double b, y;
-    double c;
-    double *U;
-
-    U = (double *)malloc(N * sizeof(double));
-    
-   // делаем пристрелку, подставляем ddu(0) = 0 
-    runge_kutta(X, a, U, u_0, du_0, 0, N); 
-    
-    b = U[N - 1];
-
-   // делаем вторую пристрелку, подставляем ddu(0) = 1
-    runge_kutta(X, a, U, u_0, du_0, 1, N);
-
-    c = (U[N - 1] - b) / (1 - 0); 
-
-    free(U);
-    return (u_1 - b) / c;
-}
-
-
-double find_ddu_0_2(double *X, int a, double u_0, double u_1, double du_0, int N)
 {
     double f_cent = 5, f_right, f_left;
     double cent_diff;

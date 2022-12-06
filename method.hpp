@@ -15,6 +15,4 @@ double f(double x, int a, double u_1, double u_2, double u_3, int num); // пр�
 
 void runge_kutta(double *X, int a, double *Res, double u_0, double du_0, double ddu_0, int N); // метод Р-К см вики 
 
-double find_ddu_0(double *X, int a, double u_0, double u_1, double du_0, int N); // поиск краевого условия u''(0) методом стрельбы в линейном случае 
-
-double find_ddu_0_2(double *X, int a, double u_0, double u_1, double du_0, int N); // поиск краевого условия u''(0) методом Ньютона 
+double find_ddu_0(double *X, int a, double u_0, double u_1, double du_0, int N); // поиск краевого условия u''(0) методом Ньютона 
