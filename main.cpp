@@ -28,7 +28,7 @@ int main()
     scanf("%d", &a);
 
     double u_0 = 0, u_1 = a, du_0 = 0; // краевые значения 
-    double ddu_0;
+    double ddu_0; // неизвестное краевое 
 
     printf("Исходная задача имеет следующий вид:\n");
     printf("u + u' * cos(x) + u''' = g(x)\n");
@@ -49,8 +49,6 @@ int main()
     }
 
     ddu_0 = find_ddu_0_2(X, a, u_0, u_1, du_0, N);
-    printf("значение проивзодной: %lf \n", ddu_0);
-    
     runge_kutta(X, a, U, u_0, du_0, ddu_0, N);
 
      error[j] = 0;
@@ -71,7 +69,6 @@ int main()
     printf("отношение погрешностей error[i] / error[i + 1]:\n");
     for (int i = 0; i < TEST - 1; i++)
         printf("%.3f\n", error[i] / error[i + 1]);
-
 
     return 0;
 }

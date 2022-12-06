@@ -125,10 +125,10 @@ double find_ddu_0(double *X, int a, double u_0, double u_1, double du_0, int N)
 
 double find_ddu_0_2(double *X, int a, double u_0, double u_1, double du_0, int N)
 {
-    double f_cent, f_right, f_left;
+    double f_cent = 5, f_right, f_left;
     double cent_diff;
     double b;
-    double result = 0.5;
+    double res = 0.5;
     double *U;
     int i = 0;
 
@@ -136,28 +136,30 @@ double find_ddu_0_2(double *X, int a, double u_0, double u_1, double du_0, int N
 
     U = (double *)malloc(N * sizeof(double));
 
-        do
+        while(fabs(f_cent - a) > EPS)
         {
-            runge_kutta(X, a, U, u_0, du_0, result, N);
+            runge_kutta(X, a, U, u_0, du_0, res, N);
             f_cent = U[N-1];
 
-            runge_kutta(X, a, U, u_0, du_0, result + h, N);
+            runge_kutta(X, a, U, u_0, du_0, res + h, N);
             f_right = U[N-1];
 
-            runge_kutta(X, a, U, u_0, du_0, result - h, N);
+            runge_kutta(X, a, U, u_0, du_0, res - h, N);
             f_left = U[N-1];
 
-            // строим касательную вида f_cent = cent_diff * x + b 
+            // строим касательную вида u(1) = cent_diff * ddu(0) + b 
             cent_diff = (f_right - f_left) / (2 * h);
 
-            b = f_cent - cent_diff * result; 
-            result = (a - b) / cent_diff; 
+            b = f_cent - cent_diff * res; 
+            res = (a - b) / cent_diff; 
  
+            runge_kutta(X, a, U, u_0, du_0, res, N);
+            f_cent = U[N-1];
             i++;  
-        } while(fabs(f_cent - a) > EPS);
+        } 
 
    // printf(" кол во итерраций i: %d\n", i);
     free(U);
-    return result;
+    return res;
 
 }
