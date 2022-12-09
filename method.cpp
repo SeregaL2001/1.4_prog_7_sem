@@ -101,11 +101,11 @@ void runge_kutta(double *X, int a, double *Res_u, double u_0, double du_0, doubl
 
 double find_ddu_0(double *X, int a, double u_0, double u_1, double du_0, int N)
 {
-    double f_cent = 5, f_right, f_left;
-    double cent_diff;
-    double b;
-    double res = 0.5;
     double *U;
+    double res = 0.5; // предполагаемое значение ddu(0) 
+    double f_cent = 5, f_right, f_left; // отвечают за значения функции в res, res + h, res - h соотв 
+    double cent_diff; // центральная производная 
+    double b; // сдвиг касательной 
     int i = 0;
 
     double h = 1.0 / (N - 1);

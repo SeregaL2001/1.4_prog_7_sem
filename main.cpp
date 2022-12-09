@@ -10,10 +10,10 @@ int main()
     int N = 20; // число точек 
     int a; // параметр альфа = 1 или 10 
     double h; // шаг сетки 
-    int k = 2; // параметр для уменьшения шага h 
-    double *X; // массив точек, длины n 
-    double *U; // массив значений функции U в точке x_i, длины n  
-    double error[TEST];
+    int k = 2; // параметр для уменьшения шага h
+    double *X; 
+    double *U;
+    double error[TEST]; // массив норм погрешностей
     double demo;
 
     printf("Введите число точек: ");
@@ -79,7 +79,7 @@ int main()
         fprintf(file, "%lf %lf\n", X[i], U[i]);
      }
 
-        printf("При h = %.8f:\n error = %le\n", h, error[j]);
+        printf("При h = %.6f:\n error = %le\n", h, error[j]);
 
         fclose(file);
         free(X);
@@ -90,7 +90,7 @@ int main()
     printf("отношение норм погрешностей ||error[j]|| / ||error[j + 1]||:\n");
     for (int j = 0; j < TEST - 1; j++) 
     {
-        printf("%.8f\n", error[j] / error[j + 1]);
+        printf("%.6f\n", error[j] / error[j + 1]);
     }
     return 0;
 }
